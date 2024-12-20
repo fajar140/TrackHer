@@ -1,4 +1,3 @@
-Cara run:
-
-APP -> app.py
-API -> flutter run
+## Cara run:
+### APP -> app.py
+### API -> flutter run
