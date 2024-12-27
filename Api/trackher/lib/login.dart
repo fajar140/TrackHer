@@ -6,10 +6,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController forgotPasswordController = TextEditingController();
+  final TextEditingController forgotPasswordController =
+      TextEditingController();
   final TextEditingController codeController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   Future<void> login(BuildContext context) async {
     final response = await http.post(
@@ -75,7 +77,8 @@ class LoginPage extends StatelessWidget {
                 }
 
                 final response = await http.post(
-                  Uri.parse('http://127.0.0.1:5000/verify_email'), // Replace with your API endpoint
+                  Uri.parse(
+                      'http://127.0.0.1:5000/verify_email'), // Replace with your API endpoint
                   headers: <String, String>{
                     'Content-Type': 'application/json; charset=UTF-8',
                   },
@@ -187,8 +190,10 @@ class LoginPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () async {
-                final passwordError = passwordValidator(newPasswordController.text);
-                final confirmPasswordError = confirmPasswordValidator(confirmPasswordController.text);
+                final passwordError =
+                    passwordValidator(newPasswordController.text);
+                final confirmPasswordError =
+                    confirmPasswordValidator(confirmPasswordController.text);
 
                 if (passwordError == null && confirmPasswordError == null) {
                   final email = forgotPasswordController.text.trim();
@@ -224,7 +229,8 @@ class LoginPage extends StatelessWidget {
   Future<bool> resetPasswordAPI(String email, String newPassword) async {
     try {
       final response = await http.post(
-        Uri.parse('http://127.0.0.1:5000/change_password'), // Replace with your API endpoint
+        Uri.parse(
+            'http://127.0.0.1:5000/change_password'), // Replace with your API endpoint
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -275,13 +281,13 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        /*title: Text(
           'Login',
           style: TextStyle(
             fontFamily: 'Poppins',
             fontWeight: FontWeight.bold,
           ),
-        ),
+        ),*/
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -297,7 +303,16 @@ class LoginPage extends StatelessWidget {
             children: <Widget>[
               Spacer(flex: 1),
               Image.asset('assets/logo.png'),
-              SizedBox(height: 20),
+              const Text(
+                'Log In',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Please log in to continue using this app.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color: Colors.black),
+              ),
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
@@ -318,25 +333,37 @@ class LoginPage extends StatelessWidget {
                 obscureText: true,
                 style: TextStyle(fontFamily: 'Poppins'),
               ),
-              SizedBox(height: 10),
-              TextButton(
-                onPressed: () => showForgotPasswordPopup(context),
-                child: Text(
-                  'Forgot Password?',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontFamily: 'Poppins',
+              //SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                          context, '/request_password_reset');
+                    },
+                    child: Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                        color: Color(0xFFeb858d),
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Color(0xFFeb858d),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () => login(context),
                 child: Text(
-                  'LOGIN',
+                  'Login',
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(

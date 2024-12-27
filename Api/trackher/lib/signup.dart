@@ -6,7 +6,8 @@ class SignUpPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   SignUpPage({super.key});
 
@@ -31,15 +32,19 @@ class SignUpPage extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Success', style: TextStyle(fontFamily: 'Poppins')),
-            content: const Text('User registered successfully!', style: TextStyle(fontFamily: 'Poppins')),
+            title:
+                const Text('Success', style: TextStyle(fontFamily: 'Poppins')),
+            content: const Text('User registered successfully!',
+                style: TextStyle(fontFamily: 'Poppins')),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).pushReplacementNamed('/login');
                 },
-                child: const Text('OK', style: TextStyle(color: Colors.white, fontFamily: 'Poppins')),
+                child: const Text('OK',
+                    style:
+                        TextStyle(color: Colors.white, fontFamily: 'Poppins')),
                 style: TextButton.styleFrom(
                   backgroundColor: const Color(0xFFeb858d),
                 ),
@@ -93,9 +98,7 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sign Up', style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold)),
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -105,7 +108,11 @@ class SignUpPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset('assets/logo.png'), 
+                  Image.asset('assets/logo.png'),
+                  const Text(
+                    'Sign Up',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
                   const SizedBox(height: 20),
                   TextFormField(
                     controller: emailController,
@@ -143,11 +150,38 @@ class SignUpPage extends StatelessWidget {
                       }
                     },
                     style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all<Color>(const Color(0xFFEB858D)),
-                      foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
-                      minimumSize: WidgetStateProperty.all<Size>(const Size(double.infinity, 50)),
+                      backgroundColor: WidgetStateProperty.all<Color>(
+                          const Color(0xFFEB858D)),
+                      foregroundColor:
+                          WidgetStateProperty.all<Color>(Colors.white),
+                      minimumSize: WidgetStateProperty.all<Size>(
+                          const Size(double.infinity, 50)),
                     ),
-                    child: const Text('Sign Up', style: TextStyle(fontFamily: 'Poppins')),
+                    child: const Text('Sign Up',
+                        style: TextStyle(fontFamily: 'Poppins')),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Already have an account? ',
+                        style: TextStyle(
+                          color: Color(0xFFeb858d),
+                          fontFamily: 'Poppins',
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Log In',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
